@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>图片水印工具 (TypeScript)</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>图片水印工具</h1>
+      <p>上传图片，设置文字或图片水印，下载结果</p>
+    </header>
+
+    <main class="container">
+      <section class="left">
+        <div class="control-group">
+          <label class="file-label">
+            选择图片
+            <input type="file" id="fileInput" accept="image/*" />
+          </label>
+        </div>
+
+        <details open>
+          <summary>文字水印</summary>
+          <div class="grid">
+            <label>
+              文本内容
+              <input id="wmText" type="text" value="© 你的水印" />
+            </label>
+            <label>
+              字体大小(px)
+              <input id="wmFontSize" type="number" min="8" max="200" value="36" />
+            </label>
+            <label>
+              字体家族
+              <input id="wmFontFamily" type="text" value="system-ui, -apple-system, Roboto, Arial" />
+            </label>
+            <label>
+              颜色 (RGBA)
+              <input id="wmColor" type="text" value="rgba(255,255,255,0.8)" />
+            </label>
+            <label>
+              文字旋转角度(°)
+              <input id="wmRotate" type="number" value="-30" />
+            </label>
+            <label>
+              重复铺满
+              <input id="wmRepeat" type="checkbox" checked />
+            </label>
+            <label>
+              排列倾斜角度(°)
+              <input id="wmLayoutAngle" type="number" value="0" />
+            </label>
+            <label>
+              水印透明度(0-1)
+              <input id="wmOpacity" type="number" min="0" max="1" step="0.05" value="0.6" />
+            </label>
+          </div>
+        </details>
+
+        <details>
+          <summary>图片水印(可选)</summary>
+          <div class="grid">
+            <label class="file-label">
+              选择水印图片
+              <input type="file" id="wmImageInput" accept="image/*" />
+            </label>
+            <label>
+              水印缩放(%)
+              <input id="wmImageScale" type="number" min="1" max="400" value="100" />
+            </label>
+            <label>
+              不透明度(0-1)
+              <input id="wmImageOpacity" type="number" min="0" max="1" step="0.05" value="0.6" />
+            </label>
+          </div>
+        </details>
+
+        <details>
+          <summary>位置与间距</summary>
+          <div class="grid">
+            <label>
+              X 间距(px)
+              <input id="wmGapX" type="number" value="180" />
+            </label>
+            <label>
+              Y 间距(px)
+              <input id="wmGapY" type="number" value="160" />
+            </label>
+            <label>
+              边距(px)
+              <input id="wmPadding" type="number" value="40" />
+            </label>
+          </div>
+        </details>
+
+        <details open>
+          <summary>防篡改设置</summary>
+          <div class="grid">
+            <label>
+              启用加固
+              <input id="wmHarden" type="checkbox" checked />
+            </label>
+            <label>
+              混合模式
+              <select id="wmBlend">
+                <option value="source-over" selected>正常(source-over)</option>
+                <option value="multiply">正片叠底(multiply)</option>
+                <option value="overlay">叠加(overlay)</option>
+                <option value="soft-light">柔光(soft-light)</option>
+                <option value="hard-light">强光(hard-light)</option>
+                <option value="color-burn">颜色加深(color-burn)</option>
+                <option value="color-dodge">颜色减淡(color-dodge)</option>
+              </select>
+            </label>
+            <label>
+              随机扰动
+              <input id="wmJitter" type="checkbox" checked />
+            </label>
+            <label>
+              微纹理
+              <input id="wmTexture" type="checkbox" checked />
+            </label>
+            <label>
+              纹理强度(0-1)
+              <input id="wmTextureAlpha" type="number" min="0" max="1" step="0.01" value="0.06" />
+            </label>
+            <label>
+              启用隐形水印(LSB)
+              <input id="wmInvisible" type="checkbox" />
+            </label>
+            <label>
+              隐形标识字符串
+              <input id="wmHiddenText" type="text" value="Watermark" />
+            </label>
+            <label>
+              导出格式
+              <select id="wmExport">
+                <option value="png" selected>PNG(无损，适合隐形水印)</option>
+                <option value="jpeg">JPEG(有损)</option>
+              </select>
+            </label>
+            <label>
+              JPEG质量(0-1)
+              <input id="wmJpegQ" type="number" min="0" max="1" step="0.05" value="0.9" />
+            </label>
+          </div>
+        </details>
+
+        <div class="actions">
+          <button id="applyBtn">应用水印</button>
+          <button id="downloadBtn" disabled>下载结果</button>
+          <button id="resetBtn">重置</button>
+        </div>
+      </section>
+
+      <section class="right">
+        <div class="canvas-wrap">
+          <canvas id="canvas"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <a href="https://github.com/" target="_blank" rel="noreferrer">开源世界</a>
+      <span> · 用 TypeScript 原生 Canvas 实现</span>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+  </html>
+
